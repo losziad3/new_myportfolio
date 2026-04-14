@@ -67,7 +67,7 @@ git push -u origin main
 portfolio/
 ├── public/
 │   ├── index.html
-│   └── ziad.jpg          ← your photo
+│   └── ziad.jpg          
 ├── src/
 │   ├── components/
 │   │   ├── Navbar.jsx / .css
@@ -80,7 +80,7 @@ portfolio/
 │   │   ├── Footer.jsx / .css
 │   │   └── Cursor.jsx / .css
 │   ├── data/
-│   │   └── data.js        ← all content lives here
+│   │   └── data.js        
 │   ├── App.jsx
 │   ├── index.js
 │   └── index.css
