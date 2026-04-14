@@ -4,34 +4,37 @@ import "./Cursor.css";
 export default function Cursor() {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
-  let mx = 0, my = 0, rx = 0, ry = 0;
+  const pos = useRef({ mx: 0, my: 0, rx: 0, ry: 0 });
 
   useEffect(() => {
-    const onMove = (e) => { mx = e.clientX; my = e.clientY; };
+    const onMove = (e) => {
+      pos.current.mx = e.clientX;
+      pos.current.my = e.clientY;
+    };
     document.addEventListener("mousemove", onMove);
 
     let animId;
     const tick = () => {
-      rx += (mx - rx) * 0.13;
-      ry += (my - ry) * 0.13;
+      const p = pos.current;
+      p.rx += (p.mx - p.rx) * 0.13;
+      p.ry += (p.my - p.ry) * 0.13;
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+        dotRef.current.style.transform = `translate(${p.mx}px, ${p.my}px) translate(-50%, -50%)`;
       }
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+        ringRef.current.style.transform = `translate(${p.rx}px, ${p.ry}px) translate(-50%, -50%)`;
       }
       animId = requestAnimationFrame(tick);
     };
     tick();
 
-    // Scale on hover
     const onEnter = () => {
-      if (ringRef.current) ringRef.current.classList.add("cursor-ring--hover");
-      if (dotRef.current) dotRef.current.classList.add("cursor-dot--hover");
+      ringRef.current?.classList.add("cursor-ring--hover");
+      dotRef.current?.classList.add("cursor-dot--hover");
     };
     const onLeave = () => {
-      if (ringRef.current) ringRef.current.classList.remove("cursor-ring--hover");
-      if (dotRef.current) dotRef.current.classList.remove("cursor-dot--hover");
+      ringRef.current?.classList.remove("cursor-ring--hover");
+      dotRef.current?.classList.remove("cursor-dot--hover");
     };
 
     document.querySelectorAll("a, button").forEach((el) => {
@@ -45,7 +48,6 @@ export default function Cursor() {
     };
   }, []);
 
-  // Hide on mobile
   if (window.matchMedia("(pointer: coarse)").matches) return null;
 
   return (
