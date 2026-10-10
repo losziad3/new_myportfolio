@@ -1,180 +1,242 @@
-// ─── All portfolio data in one place ───────────────────────────────────────
-
 export const personal = {
   name: "Ziad Ayman",
-  role: "Flutter Developer",
-  tagline: "Building high-performance cross-platform mobile experiences.",
+  fullName: "Ziad Ayman Mohamed",
+  role: "Software Engineer",
+  focus: "Mobile, Backend & Systems Integration",
+  tagline: "Flutter clients, the APIs behind them, and the pipelines that release them.",
   bio: [
-    "Flutter Developer with 2+ years of experience building high-performance mobile applications using Flutter and Dart.",
-    "Specialized in Clean Architecture, API integration, and scalable solutions — with a strong focus on code quality, performance, and collaboration.",
-    "Also an active Flutter instructor at the National Telecommunication Institute, mentoring the next generation of mobile developers.",
+    "Software engineer with nearly 3 years shipping production systems end to end: Flutter and Dart clients, plus the APIs, integrations, and delivery pipelines behind them.",
+    "Five apps are live on Google Play, covering real-time tracking, payment processing, role-based operations, and fleet logistics. The work spans REST APIs, Firebase, Node.js, data automation, and Azure DevOps CI/CD.",
   ],
   location: "Giza, Egypt",
   email: "eng.ziad.software@gmail.com",
   phone: "+20 109 968 2110",
-  dob: "2002-06-08",
 };
 
 export const links = {
-  personal: {
-    linkedin: "https://www.linkedin.com/in/ziad-ayman-b776b91ba/",
-    github: "https://github.com/losziad3",
-  },
-  projects: {
-    urbnlanes_app: "https://play.google.com/store/apps/details?id=com.marketeerurbnlanes&hl=en",
-    amanx_app: "https://play.google.com/store/apps/details?id=com.amanx.aman_x",
-    urbnlanes_fm: "https://play.google.com/store/apps/details?id=com.estatemaster.fm_urbanlanes&hl=en",
-    al_alfy_driver: "https://play.google.com/store/apps/details?id=com.absai.al_alfy_driver&hl=en",
-    eve_nav: "https://play.google.com/store/apps/details?id=com.estatemaster.evi_nav&hl=en",
-  },
+  linkedin: "https://www.linkedin.com/in/ziad-ayman-b776b91ba/",
+  github: "https://github.com/losziad3",
+  leetcode: "https://leetcode.com/u/losziad20189",
 };
 
-export const stats = [
-  { number: "2+", label: "Years Experience" },
-  { number: "5+", label: "Apps on Play Store" },
-  { number: "3+", label: "Companies" },
-  { number: "100+", label: "Students Taught" },
+export const highlights = [
+  { value: "5", label: "Apps live" },
+  { value: "1,000+", label: "Installs" },
+  { value: "~3", label: "Years shipping" },
+];
+
+export const chips = [
+  "Real-time tracking",
+  "Payment gateways",
+  "Role-based ops",
+  "Fleet logistics",
+];
+
+export const proof = [
+  { value: "5", label: "apps on Google Play" },
+  { value: "1,000+", label: "combined installs" },
+  { value: "30→5 min", label: "release time after CI/CD" },
+  { value: "70%+", label: "unit coverage on business logic" },
+];
+
+export const layers = [
+  {
+    tone: "green",
+    title: "Mobile clients",
+    text: "Flutter and Dart, from specification to a Play Store release. BLoC, Cubit, Provider, and Riverpod, with maps, push, and payment gateways.",
+    points: ["Flutter & Dart", "BLoC / Cubit / Riverpod", "Google Play Console"],
+  },
+  {
+    tone: "sand",
+    title: "The system underneath",
+    text: "REST contracts, Firebase, and Node.js services. Auth, pagination, caching, and failure handling across the flows the apps depend on.",
+    points: ["REST & Firebase", "Node.js", "Caching & failure handling"],
+  },
+  {
+    tone: "yellow",
+    title: "Delivery & teaching",
+    text: "Azure DevOps pipelines that cut a release from about 30 minutes to about 5. Curricula and hands-on training for 50+ learners, plus CS instruction for 100+ students.",
+    points: ["Azure DevOps CI/CD", "NTI instructor", "iSchool instructor"],
+  },
 ];
 
 export const experience = [
   {
-    role: "Mid-Level Flutter Developer",
-    company: "Wazin",
-    companyUrl: "https://www.linkedin.com/company/wazinapp/posts/?feedView=all",
+    role: "Software Engineer (Mid-Level)",
+    company: "Raqeem",
     period: "02/2026 – Present",
     location: "Saudi Arabia",
+    stack: ["Flutter", "Dart", "BLoC/Cubit", "Provider", "REST", "Firebase", "Azure DevOps"],
     points: [
-      "Developed and maintained cross-platform mobile apps using Flutter with responsive UI.",
-      "Implemented state management using BLoC, Cubit, and Provider.",
-      "Integrated RESTful APIs and ensured seamless data flow across architecture layers.",
-      "Set up and maintained CI/CD pipelines for faster and reliable deployments.",
-      "Collaborated with product and design teams to deliver scalable, performant features.",
+      "Own features end to end, client and service.",
+      "Cut redundant API calls ~35% with caching and pagination.",
+      "CI/CD on Azure DevOps: releases from ~30 to ~5 min.",
+      "70%+ unit-test coverage on business logic.",
     ],
   },
   {
-    role: "Flutter Developer",
-    company: "Estate Master",
-    companyUrl: "https://www.linkedin.com/company/estatemaster/posts/?feedView=all",
-    period: "2025",
+    role: "Software Engineer",
+    company: "Pilot Estate",
+    period: "05/2024 – 02/2026",
     location: "Egypt",
+    stack: ["Flutter", "Dart", "REST", "Firebase", "Provider", "BLoC", "Figma"],
     points: [
-      "Developed cross-platform mobile applications using Flutter and Dart.",
-      "Collaborated with UI/UX designers and backend teams for high-performance apps.",
-      "Implemented best practices in state management and API integration.",
+      "Shipped 5 apps to Google Play, 1,000+ installs.",
+      "Integrated 30+ endpoints: tracking, payments, multi-role access.",
+      "One white-labeled codebase serving multiple brands.",
     ],
   },
   {
-    role: "Flutter Developer & Web Scraping",
+    role: "Software Engineer — Mobile & Data Automation",
     company: "AZcare",
-    companyUrl: "https://www.linkedin.com/company/azcareai/posts/?feedView=all",
-    period: "11/2023 – 04/2024",
-    location: "USA (Remote)",
+    period: "11/2023 – 06/2024",
+    location: "United States (Remote)",
+    stack: ["Flutter", "Dart", "Selenium", "Python", "JSON pipelines"],
     points: [
-      "Developed cross-platform mobile applications ensuring optimal performance and UX.",
-      "Utilized Selenium for web scraping to support business intelligence initiatives.",
-      "Integrated scraped data into internal systems to facilitate decision-making.",
+      "Automated 10K+ records a week from 5+ sources with Selenium.",
+      "Saved ~15 hours a week of manual data work.",
+      "Built Flutter apps alongside the automation.",
     ],
   },
   {
-    role: "Flutter Instructor",
+    role: "Flutter & Software Engineering Instructor",
     company: "National Telecommunication Institute",
     companyUrl: "https://www.nti.sci.eg/",
-    period: "12/2024 – Present",
+    period: "12/2024 – 04/2025",
     location: "Cairo, Egypt",
+    stack: ["Flutter", "Dart", "Curriculum"],
     points: [
-      "Conducted hands-on training sessions on Flutter and Dart.",
-      "Developed course materials, workshops, and real-world projects.",
-      "Guided students in building production-ready applications.",
+      "Taught Flutter and Dart to 50+ learners through real projects.",
     ],
   },
   {
-    role: "Coding Instructor",
+    role: "Computer Science Instructor",
     company: "iSchool",
-    companyUrl: "https://www.linkedin.com/company/ischooltech/posts/?feedView=all",
     period: "07/2024 – 03/2026",
     location: "Egypt",
+    stack: ["CS fundamentals", "Algorithms"],
     points: [
-      "Taught programming fundamentals and computational thinking to students.",
+      "Taught programming and algorithms to 100+ students.",
     ],
   },
 ];
 
+export const quotes = {
+  craft: {
+    text: "Simplicity is prerequisite for reliability.",
+    author: "Edsger W. Dijkstra",
+  },
+  shipping: {
+    text: "Real artists ship.",
+    author: "Steve Jobs",
+  },
+  problem: {
+    text: "First, solve the problem. Then, write the code.",
+    author: "John Johnson",
+  },
+};
+
 export const skills = [
-  { category: "Languages & Frameworks", icon: "⚡", items: ["Flutter", "Dart", "Node.js", "JavaScript"] },
-  { category: "Architecture", icon: "🏛️", items: ["Clean Architecture", "OOP", "SOLID", "DDD"] },
-  { category: "State Management", icon: "🔄", items: ["BLoC", "Cubit", "Provider", "Riverpod"] },
-  { category: "Backend & APIs", icon: "🔥", items: ["Firebase", "RESTful APIs", "gRPC", "WebSockets"] },
-  { category: "DevOps & Tools", icon: "🛠️", items: ["Git", "GitHub", "Azure DevOps", "CI/CD"] },
-  { category: "Integrations", icon: "🔌", items: ["Google Maps", "Payment Gateways", "Push Notifications", "Selenium"] },
-  { category: "Project Management", icon: "📋", items: ["Jira", "Notion", "Trello", "Agile/Scrum"] },
-  { category: "Languages", icon: "🌐", items: ["Arabic (Native)", "English (Professional)", "German (Basic)"] },
+  {
+    category: "Languages",
+    items: ["Dart", "Python", "JavaScript", "C++", "Java", "C#", "SQL"],
+  },
+  {
+    category: "Mobile",
+    items: ["Flutter", "BLoC / Cubit", "Provider", "Riverpod", "Hive", "SQLite", "FCM", "Google Maps", "Payment gateways"],
+  },
+  {
+    category: "Backend & APIs",
+    items: ["REST", "gRPC", "Node.js", "Django", "Firebase", "Dio", "Webhooks", "Postman"],
+  },
+  {
+    category: "Data & architecture",
+    items: ["Clean Architecture", "SOLID", "Repository pattern", "MySQL", "SQL Server", "Firestore", "Selenium", "pandas"],
+  },
+  {
+    category: "Delivery",
+    items: ["Git", "GitHub", "Azure DevOps", "CI/CD", "Jira", "Figma", "Agile"],
+  },
 ];
 
 export const projects = [
   {
     id: "01",
-    name: "Urbnlanes",
-    category: "Real Estate Platform",
-    description: "A white-labeled smart real estate platform featuring real-time payment & installment tracking, secure in-app customer support chat, unit exploration & reservation, and service request management.",
-    tags: ["Flutter", "BLoC", "Firebase", "Real-time Chat"],
-    link: "https://play.google.com/store/apps/details?id=com.marketeerurbnlanes&hl=en",
-    accent: "#4fc3f7",
-    bg: "#0a1929",
-    icon: "🏙️",
-    screens: ["Payment Tracking", "Unit Explorer", "Support Chat", "Service Requests"],
+    name: "Livo Light",
+    category: "Real estate",
+    description:
+      "Multi-tenant real estate platform with real-time payment and installment tracking, payment gateway integration, in-app chat, and unit reservation.",
+    tags: ["Flutter", "Payments", "Realtime", "Chat"],
+    link: "https://play.google.com/store/apps/details?id=com.estateMaster.livoEstateCompany&hl=en",
+    images: [
+      "/projects/livo-light/1.png",
+      "/projects/livo-light/2.png",
+      "/projects/livo-light/3.png",
+      "/projects/livo-light/4.png",
+    ],
   },
   {
     id: "02",
     name: "amanX",
-    category: "Digital Security",
-    description: "An innovative digital security platform for managing security operations with real-time tracking, task scheduling, instant reporting, AI-powered analytics, and enhanced communication between management and field teams.",
-    tags: ["Flutter", "AI", "Google Maps", "Real-time"],
+    category: "Security operations",
+    description:
+      "Security operations platform for field teams: real-time GPS tracking, task scheduling, incident reporting, and analytics.",
+    tags: ["Flutter", "GPS", "Scheduling", "Reporting"],
     link: "https://play.google.com/store/apps/details?id=com.amanx.aman_x",
-    accent: "#ff6b6b",
-    bg: "#1f0a0a",
-    icon: "🛡️",
-    screens: ["Live Tracking", "Task Scheduler", "Instant Reports", "Analytics"],
+    images: [
+      "/projects/amanx/1.png",
+      "/projects/amanx/2.png",
+      "/projects/amanx/3.png",
+    ],
   },
   {
     id: "03",
-    name: "Urbnlanes FM",
-    category: "Facility Management",
-    description: "Real-time project management covering maintenance, housekeeping, security personnel, gates, loading bays, plus supervisor and department manager dashboards with monitoring and evaluation features.",
-    tags: ["Flutter", "Dart", "REST API", "CI/CD"],
-    link: "https://play.google.com/store/apps/details?id=com.estatemaster.fm_urbanlanes&hl=en",
-    accent: "#a78bfa",
-    bg: "#160d29",
-    icon: "🏗️",
-    screens: ["Dashboard", "Maintenance", "Personnel", "Evaluation"],
+    name: "Livo FM",
+    category: "Facility management",
+    description:
+      "Facility management across maintenance, housekeeping, security, gates, and loading bays, with role-based access for supervisors, managers, and field staff.",
+    tags: ["Flutter", "Roles", "Operations", "REST"],
+    link: "https://play.google.com/store/apps/details?id=com.estatemaster.FMlivo&hl=en",
+    images: [
+      "/projects/livo-fm/1.png",
+      "/projects/livo-fm/2.png",
+      "/projects/livo-fm/3.png",
+      "/projects/livo-fm/4.png",
+    ],
   },
   {
     id: "04",
     name: "Al Alfy Driver",
-    category: "Transport & Logistics",
-    description: "Dedicated driver app for Al Alfy — Egypt's leading transport company — enabling trip management, real-time GPS tracking, financial reporting, trip history, and secure location-based coordination.",
-    tags: ["Flutter", "Google Maps", "Location", "Firebase"],
+    category: "Fleet logistics",
+    description:
+      "Fleet logistics for a leading Egyptian transport company: trip dispatch, real-time tracking, financial reporting, and location-verified login.",
+    tags: ["Flutter", "Maps", "Dispatch", "Tracking"],
     link: "https://play.google.com/store/apps/details?id=com.absai.al_alfy_driver&hl=en",
-    accent: "#34d399",
-    bg: "#0a1f16",
-    icon: "🚗",
-    screens: ["Trip Offers", "GPS Tracking", "Financials", "Trip History"],
+    images: [
+      "/projects/alfy/1.png",
+      "/projects/alfy/2.png",
+      "/projects/alfy/3.png",
+    ],
   },
   {
     id: "05",
     name: "Eve Nav",
-    category: "Event Management",
-    description: "An all-in-one event management solution — create events, invite attendees, assign ticket types, and manage guest lists for conferences, concerts, workshops, and social gatherings.",
-    tags: ["Flutter", "BLoC", "REST API", "Dart"],
+    category: "Events",
+    description:
+      "Event management platform with event creation, attendee invitations, ticket assignment, and guest list management.",
+    tags: ["Flutter", "Invites", "Tickets", "Guests"],
     link: "https://play.google.com/store/apps/details?id=com.estatemaster.evi_nav&hl=en",
-    accent: "#f59e0b",
-    bg: "#1f160a",
-    icon: "🎪",
-    screens: ["Create Event", "Invitations", "Ticket Types", "Guest List"],
+    images: [
+      "/projects/evenav/1.png",
+      "/projects/evenav/2.png",
+      "/projects/evenav/3.png",
+      "/projects/evenav/4.png",
+    ],
   },
 ];
 
 export const education = {
-  degree: "Bachelor's Degree in Computer Science",
+  degree: "B.Sc. Computer Science",
   faculty: "Faculty of Computers and Artificial Intelligence",
   university: "Cairo University",
   period: "10/2020 – 06/2024",

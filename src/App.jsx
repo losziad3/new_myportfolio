@@ -6,19 +6,22 @@ import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import Cursor from "./components/Cursor";
+import Quote from "./components/Quote";
+import { quotes } from "./data/data";
 
 export default function App() {
   return (
     <>
-      <Cursor />
       <Navbar />
       <main>
         <Hero />
         <About />
+        <Quote {...quotes.craft} />
         <Experience />
         <Skills />
+        <Quote {...quotes.shipping} />
         <Projects />
+        <Quote {...quotes.problem} />
         <Contact />
       </main>
       <Footer />

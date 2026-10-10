@@ -1,112 +1,113 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { links } from "../data/data";
 import "./Navbar.css";
 
 const NAV_LINKS = [
   { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
   { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
+  { href: "#projects", label: "Work" },
   { href: "#contact", label: "Contact" },
 ];
 
+function initialTheme() {
+  const saved = localStorage.getItem("theme");
+  if (saved === "light" || saved === "dark") return saved;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function ThemeIcon({ theme }) {
+  return theme === "dark" ? (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+    </svg>
+  ) : (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+    </svg>
+  );
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState("");
+  const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState(initialTheme);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll);
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close menu on resize
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth > 768) setMenuOpen(false); };
+    const onResize = () => {
+      if (window.innerWidth > 860) setOpen(false);
+    };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const handleNav = (href) => {
-    setActive(href);
-    setMenuOpen(false);
-  };
-
   return (
-    <>
-      <motion.nav
-        className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+    <header className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
+      <a href="#hero" className="nav__logo" aria-label="Ziad Ayman, home">
+        ZA
+      </a>
+
+      <nav className="nav__links" aria-label="Primary">
+        {NAV_LINKS.map((link) => (
+          <a key={link.href} href={link.href}>
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <button
+        type="button"
+        className="nav__theme"
+        onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+        aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
       >
-        <a href="#hero" className="navbar__logo">
-          <span className="navbar__logo-za">ZA</span>
-          <span className="navbar__logo-dot">.</span>
-        </a>
+        <ThemeIcon theme={theme} />
+      </button>
 
-        <ul className="navbar__links">
-          {NAV_LINKS.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className={`navbar__link ${active === l.href ? "navbar__link--active" : ""}`}
-                onClick={() => handleNav(l.href)}
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+      <a href="#contact" className="nav__cta">
+        Let’s talk
+      </a>
 
-        <a
-          href={links.personal.linkedin}
-          target="_blank"
-          rel="noreferrer"
-          className="navbar__cta"
-        >
-          Hire Me
-        </a>
+      <button
+        className={`nav__burger ${open ? "is-open" : ""}`}
+        onClick={() => setOpen((v) => !v)}
+        aria-label={open ? "Close menu" : "Open menu"}
+        aria-expanded={open}
+      >
+        <span />
+        <span />
+      </button>
 
-        <button
-          className={`navbar__burger ${menuOpen ? "navbar__burger--open" : ""}`}
-          onClick={() => setMenuOpen((o) => !o)}
-          aria-label="Toggle menu"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </motion.nav>
-
-      {/* Mobile Menu */}
       <AnimatePresence>
-        {menuOpen && (
+        {open && (
           <motion.div
-            className="mobile-menu"
-            initial={{ opacity: 0, y: -20 }}
+            className="nav__sheet"
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25 }}
           >
-            {NAV_LINKS.map((l, i) => (
-              <motion.a
-                key={l.href}
-                href={l.href}
-                className="mobile-menu__link"
-                onClick={() => handleNav(l.href)}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06 }}
-              >
-                {l.label}
-              </motion.a>
+            {NAV_LINKS.map((link) => (
+              <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
+                {link.label}
+              </a>
             ))}
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </header>
   );
 }

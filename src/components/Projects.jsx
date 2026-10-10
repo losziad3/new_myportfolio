@@ -1,82 +1,150 @@
-
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { projects } from "../data/data";
 import "./Projects.css";
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 30 },
+const fade = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] },
 });
 
-/* ── Phone mockup with 4 mini screen cards ── */
-function AppPreview({ project }) {
-  const { accent, bg, icon, screens, name } = project;
+function wrapOffset(index, active, total) {
+  let offset = index - active;
+  if (offset > total / 2) offset -= total;
+  if (offset < -total / 2) offset += total;
+  return offset;
+}
+
+function PhoneStage({ images, name }) {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [narrow, setNarrow] = useState(false);
+  const total = images.length;
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 720px)");
+    const apply = () => setNarrow(query.matches);
+    apply();
+    query.addEventListener("change", apply);
+    return () => query.removeEventListener("change", apply);
+  }, []);
+
+  useEffect(() => {
+    if (paused || total < 2) return undefined;
+    const id = window.setInterval(() => {
+      setActive((current) => (current + 1) % total);
+    }, 3400);
+    return () => window.clearInterval(id);
+  }, [paused, total]);
+
+  const go = (direction) => {
+    setActive((current) => (current + direction + total) % total);
+  };
+
   return (
-    <div className="app-preview" style={{ "--app-accent": accent, "--app-bg": bg }}>
-      {/* Phone frame */}
-      <div className="phone-frame">
-        {/* Status bar */}
-        <div className="phone-status">
-          <span className="phone-time">9:41</span>
-          <div className="phone-icons">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill={accent}><path d="M1 6l11 11L23 6" stroke={accent} strokeWidth="2.5" fill="none"/></svg>
-            <svg width="12" height="10" viewBox="0 0 24 16" fill={accent}><rect x="0" y="4" width="5" height="12" rx="1"/><rect x="7" y="2" width="5" height="14" rx="1"/><rect x="14" y="0" width="5" height="16" rx="1"/><rect x="21" y="5" width="2" height="8" rx="1" opacity="0.4"/></svg>
-          </div>
-        </div>
-
-        {/* App header */}
-        <div className="phone-header" style={{ borderBottom: `1px solid ${accent}22` }}>
-          <span className="phone-app-icon">{icon}</span>
-          <span className="phone-app-name" style={{ color: accent }}>{name}</span>
-        </div>
-
-        {/* Screen grid — 4 mini cards */}
-        <div className="phone-screens">
-          {screens.map((label, i) => (
-            <div
-              key={i}
-              className="phone-screen"
-              style={{ animationDelay: `${i * 0.15}s` }}
+    <div
+      className="stage"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="stage__scene">
+        {images.map((src, index) => {
+          const offset = wrapOffset(index, active, total);
+          const distance = Math.abs(offset);
+          if (narrow && offset !== 0) return null;
+          return (
+            <motion.button
+              key={src}
+              type="button"
+              className="stage__phone"
+              aria-label={`${name} screen ${index + 1}`}
+              onClick={() => setActive(index)}
+              animate={{
+                x: narrow ? 0 : offset * 118,
+                z: narrow ? 0 : -distance * 90,
+                rotateY: narrow ? 0 : offset * -26,
+                scale: offset === 0 ? 1 : 0.84,
+                opacity: distance > 2 ? 0 : 1,
+              }}
+              transition={{ type: "spring", stiffness: 220, damping: 26 }}
+              style={{ zIndex: 20 - distance, transformStyle: "preserve-3d" }}
             >
-              <div className="screen-bar screen-bar--title" style={{ background: accent, opacity: 0.7, width: `${55 + i * 8}%` }} />
-              <div className="screen-bar" style={{ background: accent, opacity: 0.25, width: "80%" }} />
-              <div className="screen-bar" style={{ background: accent, opacity: 0.18, width: "60%" }} />
-              <div className="screen-icon" style={{ background: `${accent}20`, border: `1px solid ${accent}30`, color: accent }}>
-                {["💳","📍","💬","🔧","🗺️","📊","📋","📈"][i % 8]}
-              </div>
-              <span className="screen-label" style={{ color: accent }}>{label}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom nav */}
-        <div className="phone-nav" style={{ borderTop: `1px solid ${accent}22` }}>
-          {["⊞","⊙","◎","☰"].map((ic, i) => (
-            <span key={i} className="phone-nav-ic" style={{ color: i === 0 ? accent : undefined }}>{ic}</span>
-          ))}
-        </div>
-
-        {/* Home indicator */}
-        <div className="phone-home-bar" style={{ background: accent }} />
+              <img src={src} alt="" />
+            </motion.button>
+          );
+        })}
       </div>
+
+      {total > 1 && (
+        <div className="stage__controls">
+          <button type="button" onClick={() => go(-1)} aria-label={`Previous ${name} screen`}>
+            ‹
+          </button>
+          <div className="stage__dots">
+            {images.map((src, index) => (
+              <button
+                key={src}
+                type="button"
+                className={index === active ? "is-on" : ""}
+                aria-label={`Show ${name} screen ${index + 1}`}
+                onClick={() => setActive(index)}
+              />
+            ))}
+          </div>
+          <button type="button" onClick={() => go(1)} aria-label={`Next ${name} screen`}>
+            ›
+          </button>
+        </div>
+      )}
     </div>
   );
 }
 
-function ExternalIcon() {
+function WideShot({ src, name }) {
+  const refX = useMotionValue(0);
+  const refY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(refY, [-0.5, 0.5], [6, -6]), {
+    stiffness: 140,
+    damping: 18,
+  });
+  const rotateY = useSpring(useTransform(refX, [-0.5, 0.5], [-8, 8]), {
+    stiffness: 140,
+    damping: 18,
+  });
+
+  const move = (event) => {
+    const box = event.currentTarget.getBoundingClientRect();
+    refX.set((event.clientX - box.left) / box.width - 0.5);
+    refY.set((event.clientY - box.top) / box.height - 0.5);
+  };
+
   return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M7 17L17 7M7 7h10v10" />
-    </svg>
+    <div
+      className="wide"
+      onMouseMove={move}
+      onMouseLeave={() => {
+        refX.set(0);
+        refY.set(0);
+      }}
+    >
+      <motion.img
+        src={src}
+        alt={`${name} on Google Play`}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      />
+    </div>
   );
 }
 
-function PlayStoreIcon() {
+function PlayIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M3.18 23.76c.33.18.7.24 1.07.18L14.48 12 4.25.06c-.37-.06-.74 0-1.07.18C2.49.65 2 1.46 2 2.4v19.2c0 .94.49 1.75 1.18 2.16zM16.54 9.54l2.1-1.21-10.08-5.83-2.22 2.22 10.2 4.82zM22.07 10.7l-2.9-1.67-2.38 2.38L19.17 13l2.9-1.67c.87-.5.87-1.63 0-2.13zM8.55 14.84L6.33 17.06l10.08 5.83 2.1-1.21-9.96-6.84z" />
+    <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M3.2 23.8c.3.2.7.2 1 .2L14.5 12 4.2.1c-.3 0-.7 0-1 .2C2.5.6 2 1.5 2 2.4v19.2c0 .9.5 1.7 1.2 2.2zM16.5 9.5l2.1-1.2L8.6 2.5 6.3 4.7l10.2 4.8zM22 10.7l-2.9-1.7-2.4 2.4 2.4 1.6 2.9-1.7c.9-.5.9-1.6 0-2.1zM8.6 14.8 6.3 17l10.1 5.8 2.1-1.2-9.9-6.8z"
+      />
     </svg>
   );
 }
@@ -85,48 +153,51 @@ export default function Projects() {
   return (
     <section className="projects section" id="projects">
       <div className="container">
-        <motion.div className="section-label" {...fadeUp(0)}>Work</motion.div>
-        <motion.h2 className="section-title" {...fadeUp(0.08)}>
-          Projects on<br />
-          <span className="italic-accent">Play Store.</span>
-        </motion.h2>
+        <motion.div className="section-head" {...fade(0)}>
+          <p className="eyebrow">Selected work</p>
+          <h2>
+            Live on
+            <br />
+            Google Play.
+          </h2>
+          <p className="lede">
+            <span className="mark">All five.</span> Real estate, security operations, facilities, fleet logistics, and events.
+          </p>
+        </motion.div>
 
         <div className="projects__list">
-          {projects.map((proj, i) => (
+          {projects.map((project, index) => (
             <motion.article
-              key={proj.id}
-              className="proj-row"
-              style={{ "--acc": proj.accent, "--bg": proj.bg }}
-              {...fadeUp(0.06 + i * 0.07)}
+              key={project.id}
+              className={`project ${project.wide ? "project--wide" : ""} ${index % 2 ? "project--flip" : ""}`}
+              {...fade(0.04)}
             >
-              {/* Left: info */}
-              <div className="proj-row__info">
-                <div className="proj-row__top">
-                  <span className="proj-row__num">{proj.id}</span>
-                  <span className="proj-row__category">{proj.category}</span>
-                </div>
-                <h3 className="proj-row__name">{proj.name}</h3>
-                <p className="proj-row__desc">{proj.description}</p>
-                <div className="proj-row__tags">
-                  {proj.tags.map((t) => (
-                    <span key={t} className="proj-row__tag">{t}</span>
+              <div className="project__copy">
+                <p className="project__kicker">
+                  <span>{project.id}</span>
+                  {project.category}
+                </p>
+                <h3>{project.name}</h3>
+                <p>{project.description}</p>
+                <div className="project__tags">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="pill">
+                      {tag}
+                    </span>
                   ))}
                 </div>
-                <a
-                  href={proj.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="proj-row__btn"
-                >
-                  <PlayStoreIcon />
-                  View on Play Store
-                  <ExternalIcon />
+                <a className="btn btn--teal" href={project.link} target="_blank" rel="noreferrer">
+                  <PlayIcon />
+                  View on Google Play
                 </a>
               </div>
 
-              {/* Right: app preview */}
-              <div className="proj-row__preview">
-                <AppPreview project={proj} />
+              <div className="project__visual">
+                {project.wide ? (
+                  <WideShot src={project.images[0]} name={project.name} />
+                ) : (
+                  <PhoneStage images={project.images} name={project.name} />
+                )}
               </div>
             </motion.article>
           ))}

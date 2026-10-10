@@ -2,130 +2,96 @@ import { motion } from "framer-motion";
 import { personal, links } from "../data/data";
 import "./Contact.css";
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 30 },
+const fade = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] },
+  transition: { duration: 0.65, delay, ease: [0.16, 1, 0.3, 1] },
 });
 
-const CONTACT_ITEMS = [
-  {
-    icon: <EmailIcon />,
-    label: "Email",
-    value: personal.email,
-    href: `mailto:${personal.email}`,
-  },
-  {
-    icon: <PhoneIcon />,
-    label: "Phone",
-    value: personal.phone,
-    href: `tel:${personal.phone.replace(/\s/g, "")}`,
-  },
-  {
-    icon: <LinkedInIcon />,
-    label: "LinkedIn",
-    value: "linkedin.com/in/ziad-ayman",
-    href: links.personal.linkedin,
-  },
-  {
-    icon: <GithubIcon />,
-    label: "GitHub",
-    value: "github.com/losziad3",
-    href: links.personal.github,
-  },
+const channels = [
+  { label: "Email", value: personal.email, href: `mailto:${personal.email}`, icon: <MailIcon /> },
+  { label: "Phone", value: personal.phone, href: `tel:${personal.phone.replace(/\s/g, "")}`, icon: <PhoneIcon /> },
+  { label: "LinkedIn", value: "ziad-ayman", href: links.linkedin, icon: <LinkedInIcon /> },
+  { label: "GitHub", value: "losziad3", href: links.github, icon: <GithubIcon /> },
+  { label: "LeetCode", value: "losziad20189", href: links.leetcode, icon: <LeetCodeIcon /> },
 ];
 
 export default function Contact() {
   return (
     <section className="contact section" id="contact">
       <div className="container">
-        <div className="contact__inner">
-          <div className="contact__left">
-            <motion.div className="section-label" {...fadeUp(0)}>Say Hello</motion.div>
-            <motion.h2 className="section-title" {...fadeUp(0.08)}>
-              Let's build<br />
-              <span className="italic-accent">together.</span>
-            </motion.h2>
-            <motion.p className="contact__intro" {...fadeUp(0.15)}>
-              I'm currently open to new opportunities — full-time roles,
-              freelance projects, or just a great conversation about mobile
-              development. My inbox is always open.
-            </motion.p>
+        <motion.div className="contact__panel" {...fade(0)}>
+          <p className="eyebrow">Contact</p>
+          <h2 className="display">
+            Tell me what
+            <br />
+            needs to ship.
+          </h2>
+          <p className="contact__lede">
+            Open to a full-time role or a product that needs someone who can own the client, the API, and the release. Based in {personal.location}. Arabic and English.
+          </p>
+          <a className="btn btn--teal contact__cta" href={`mailto:${personal.email}`}>
+            Write to {personal.email}
+          </a>
 
-            <motion.a
-              href={`mailto:${personal.email}`}
-              className="contact__cta"
-              {...fadeUp(0.22)}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <EmailIcon />
-              Send me an email
-            </motion.a>
-          </div>
-
-          <div className="contact__right">
-            {CONTACT_ITEMS.map((item, i) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                target={item.href.startsWith("http") ? "_blank" : undefined}
-                rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-                className="contact__link"
-                {...fadeUp(0.1 + i * 0.07)}
-                whileHover={{ x: 8, borderColor: "rgba(79,195,247,0.35)" }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          <div className="contact__grid">
+            {channels.map((channel) => (
+              <a
+                key={channel.label}
+                href={channel.href}
+                target={channel.href.startsWith("http") ? "_blank" : undefined}
+                rel={channel.href.startsWith("http") ? "noreferrer" : undefined}
               >
-                <span className="contact__link-icon">{item.icon}</span>
-                <div className="contact__link-body">
-                  <span className="contact__link-label">{item.label}</span>
-                  <span className="contact__link-value">{item.value}</span>
-                </div>
-                <ArrowIcon />
-              </motion.a>
+                <span className="contact__icon" aria-hidden="true">{channel.icon}</span>
+                <span>{channel.label}</span>
+                <strong>{channel.value}</strong>
+              </a>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
 
-function EmailIcon() {
+function MailIcon() {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m4 7 8 6 8-6" />
     </svg>
   );
 }
+
 function PhoneIcon() {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 3h3l1.5 4-2 1.5a12 12 0 0 0 5 5L17 12l4 1.5V17a2 2 0 0 1-2.2 2A16 16 0 0 1 5 7.2 2 2 0 0 1 7 5l1-2z" />
     </svg>
   );
 }
+
 function LinkedInIcon() {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
-      <circle cx="4" cy="4" r="2" />
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M6.5 9H4V20h2.5V9zM5.2 4A1.6 1.6 0 1 0 5.2 7.2 1.6 1.6 0 0 0 5.2 4zM20 20h-2.5v-5.6c0-1.6-.6-2.6-2-2.6-1 0-1.6.7-1.9 1.4-.1.2-.1.6-.1.9V20H11V9h2.4v1.5c.4-.7 1.3-1.8 3.2-1.8 2.3 0 4 1.5 4 4.8V20z" />
     </svg>
   );
 }
+
 function GithubIcon() {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z" />
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8a9.56 9.56 0 0 1 2.5.34c1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .26.18.58.69.48A10 10 0 0 0 12 2z" />
     </svg>
   );
 }
-function ArrowIcon() {
+
+function LeetCodeIcon() {
   return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M7 17L17 7M7 7h10v10" />
+    <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="#FFA116" d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
     </svg>
   );
 }

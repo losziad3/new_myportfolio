@@ -4,12 +4,25 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/ziad.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#07080f" />
-    <meta name="description" content="Ziad Ayman Mohamed — Flutter Developer & Mobile Architect based in Giza, Egypt." />
-    <meta property="og:title" content="Ziad Ayman — Flutter Developer" />
-    <meta property="og:description" content="Building high-performance cross-platform mobile apps with Flutter & Dart." />
-    <meta property="og:image" content="%PUBLIC_URL%/ziad.jpg" />
-    <title>Ziad Ayman — Flutter Developer</title>
+    <meta name="theme-color" content="#f3f0ea" />
+    <meta
+      name="description"
+      content="Ziad Ayman Mohamed — software engineer shipping Flutter products, APIs, and delivery pipelines. Five apps live on Google Play."
+    />
+    <meta property="og:title" content="Ziad Ayman — Software Engineer" />
+    <meta
+      property="og:description"
+      content="Mobile, backend, and the systems that connect them. Five apps live on Google Play."
+    />
+    <meta property="og:image" content="%PUBLIC_URL%/portrait.png" />
+    <title>Ziad Ayman — Software Engineer</title>
+    <script>
+      (function () {
+        var saved = localStorage.getItem("theme");
+        var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+      })();
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
