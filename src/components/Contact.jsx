@@ -45,7 +45,16 @@ export default function Contact() {
               >
                 <span className="contact__icon" aria-hidden="true">{channel.icon}</span>
                 <span>{channel.label}</span>
-                <strong>{channel.value}</strong>
+                <strong>
+                  {channel.label === "Email" ? (
+                    <>
+                      {channel.value.split("@")[0]}@<wbr />
+                      {channel.value.split("@")[1]}
+                    </>
+                  ) : (
+                    channel.value
+                  )}
+                </strong>
               </a>
             ))}
           </div>

@@ -17,8 +17,9 @@
 }
 
 .skills__card:nth-child(4),
-.skills__card:nth-child(5) {
-  grid-column: span 3;
+.skills__card:nth-child(5),
+.skills__card:nth-child(6) {
+  grid-column: span 2;
 }
 
 .skills__card h3 {
@@ -45,7 +46,8 @@
 
   .skills__card,
   .skills__card:nth-child(4),
-  .skills__card:nth-child(5) {
+  .skills__card:nth-child(5),
+  .skills__card:nth-child(6) {
     grid-column: auto;
   }
 }

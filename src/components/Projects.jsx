@@ -140,11 +140,19 @@ function WideShot({ src, name }) {
 
 function PlayIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M3.2 23.8c.3.2.7.2 1 .2L14.5 12 4.2.1c-.3 0-.7 0-1 .2C2.5.6 2 1.5 2 2.4v19.2c0 .9.5 1.7 1.2 2.2zM16.5 9.5l2.1-1.2L8.6 2.5 6.3 4.7l10.2 4.8zM22 10.7l-2.9-1.7-2.4 2.4 2.4 1.6 2.9-1.7c.9-.5.9-1.6 0-2.1zM8.6 14.8 6.3 17l10.1 5.8 2.1-1.2-9.9-6.8z"
-      />
+    <svg width="22" height="22" viewBox="1.2 1.2 21.2 21.2" aria-hidden="true">
+      <path fill="#4285F4" d="M3 20.5V3.5c0-.6.3-1.1.8-1.4L14 12 3.8 21.9c-.5-.3-.8-.8-.8-1.4z" />
+      <path fill="#34A853" d="M16.7 15.1 14 12.4l-10.2 9.5c.5.5 1.3.6 2 .1l10.9-6.9z" />
+      <path fill="#FBBC04" d="M20.1 10.8 16.7 8.9 14 11.6l2.7 2.7 3.4-2c.7-.4.7-1.4 0-1.5z" />
+      <path fill="#EA4335" d="M16.7 8.9 5.8 2.1c-.7-.5-1.5-.4-2 .1L14 11.6l2.7-2.7z" />
+    </svg>
+  );
+}
+
+function AppleIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8s-1.8-.8-3-.8c-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.3 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7 2-.1 2.9-2.3c.7-1 1-2 1-2.1-.1 0-1.9-.7-1.9-2.9zM14.7 6.2c.6-.8 1.1-1.9.9-3-1 .1-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.5 2.9-1.3z" />
     </svg>
   );
 }
@@ -186,10 +194,18 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
-                <a className="btn btn--teal" href={project.link} target="_blank" rel="noreferrer">
-                  <PlayIcon />
-                  View on Google Play
-                </a>
+                <div className="project__stores">
+                  <a className="btn btn--teal" href={project.link} target="_blank" rel="noreferrer">
+                    <PlayIcon />
+                    Google Play
+                  </a>
+                  {project.appStore && (
+                    <a className="btn btn--ghost" href={project.appStore} target="_blank" rel="noreferrer">
+                      <AppleIcon />
+                      App Store
+                    </a>
+                  )}
+                </div>
               </div>
 
               <div className="project__visual">

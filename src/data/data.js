@@ -64,6 +64,7 @@ export const experience = [
   {
     role: "Software Engineer (Mid-Level)",
     company: "Raqeem",
+    companyUrl: "https://www.linkedin.com/company/wazinapp/posts/?feedView=all",
     period: "02/2026 – Present",
     location: "Saudi Arabia",
     stack: ["Flutter", "Dart", "BLoC/Cubit", "Provider", "REST", "Firebase", "Azure DevOps"],
@@ -77,6 +78,7 @@ export const experience = [
   {
     role: "Software Engineer",
     company: "Pilot Estate",
+    companyUrl: "https://www.linkedin.com/company/pilotestate/posts/?feedView=all",
     period: "05/2024 – 02/2026",
     location: "Egypt",
     stack: ["Flutter", "Dart", "REST", "Firebase", "Provider", "BLoC", "Figma"],
@@ -89,6 +91,7 @@ export const experience = [
   {
     role: "Software Engineer — Mobile & Data Automation",
     company: "AZcare",
+    companyUrl: "https://www.linkedin.com/company/azcareai/posts/?feedView=all",
     period: "11/2023 – 06/2024",
     location: "United States (Remote)",
     stack: ["Flutter", "Dart", "Selenium", "Python", "JSON pipelines"],
@@ -112,6 +115,7 @@ export const experience = [
   {
     role: "Computer Science Instructor",
     company: "iSchool",
+    companyUrl: "https://www.linkedin.com/company/ischooltech/posts/?feedView=all",
     period: "07/2024 – 03/2026",
     location: "Egypt",
     stack: ["CS fundamentals", "Algorithms"],
@@ -154,8 +158,12 @@ export const skills = [
     items: ["Clean Architecture", "SOLID", "Repository pattern", "MySQL", "SQL Server", "Firestore", "Selenium", "pandas"],
   },
   {
+    category: "DevOps",
+    items: ["Azure DevOps", "CI/CD pipelines", "Git", "GitHub"],
+  },
+  {
     category: "Delivery",
-    items: ["Git", "GitHub", "Azure DevOps", "CI/CD", "Jira", "Figma", "Agile"],
+    items: ["Jira", "Figma", "Agile", "Play Console"],
   },
 ];
 
@@ -182,7 +190,8 @@ export const projects = [
     description:
       "Security operations platform for field teams: real-time GPS tracking, task scheduling, incident reporting, and analytics.",
     tags: ["Flutter", "GPS", "Scheduling", "Reporting"],
-    link: "https://play.google.com/store/apps/details?id=com.amanx.aman_x",
+    link: "https://play.google.com/store/apps/details?id=com.amanx.aman_x&pcampaignid=web_share",
+    appStore: "https://apps.apple.com/sa/app/amanx/id6761360499",
     images: [
       "/projects/amanx/1.png",
       "/projects/amanx/2.png",
@@ -212,6 +221,7 @@ export const projects = [
       "Fleet logistics for a leading Egyptian transport company: trip dispatch, real-time tracking, financial reporting, and location-verified login.",
     tags: ["Flutter", "Maps", "Dispatch", "Tracking"],
     link: "https://play.google.com/store/apps/details?id=com.absai.al_alfy_driver&hl=en",
+    appStore: "https://apps.apple.com/eg/app/al-alfy-driver/id6748659769",
     images: [
       "/projects/alfy/1.png",
       "/projects/alfy/2.png",
