@@ -66,7 +66,7 @@ export const experience = [
     company: "Raqeem",
     companyUrl: "https://www.linkedin.com/company/wazinapp/posts/?feedView=all",
     period: "02/2026 – Present",
-    location: "Saudi Arabia",
+    location: "Saudi Arabia (Remote)",
     stack: ["Flutter", "Dart", "BLoC/Cubit", "Provider", "REST", "Firebase", "Azure DevOps"],
     points: [
       "Own features end to end, client and service.",
@@ -80,7 +80,7 @@ export const experience = [
     company: "Pilot Estate",
     companyUrl: "https://www.linkedin.com/company/pilotestate/posts/?feedView=all",
     period: "05/2024 – 02/2026",
-    location: "Egypt",
+    location: "Egypt (Hybrid)",
     stack: ["Flutter", "Dart", "REST", "Firebase", "Provider", "BLoC", "Figma"],
     points: [
       "Shipped 5 apps to Google Play, 1,000+ installs.",
